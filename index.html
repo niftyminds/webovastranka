@@ -571,6 +571,104 @@
       line-height: 1.5;
       color: #333;
     }
+
+    /* ── MOBILE RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 768px) {
+
+      /* Navbar — hamburger hidden, show brand + CTA only */
+      .navbar-inner { padding: 0 16px; }
+      .navbar-link { display: none; }
+      .navbar-menu { gap: 12px; }
+      .navbar-brand { font-size: 14px; }
+
+      /* Hero — stack vertically */
+      .hero { padding: 40px 16px; }
+      .hero-inner {
+        flex-direction: column;
+        gap: 32px;
+      }
+      .hero-headline { font-size: 36px; }
+      .hero-desc { font-size: 16px; }
+      .hero-image img { height: 260px; }
+      .hero-actions { flex-wrap: wrap; }
+
+      /* Logos — 2 per row */
+      .logos-section { padding: 48px 16px; gap: 32px; }
+      .logos-title { font-size: 24px; }
+      .logos-row { gap: 16px; }
+      .logo-item { width: 140px; height: 70px; }
+
+      /* Testimonials — stack all vertically */
+      .testimonials { padding: 48px 16px; }
+      .section-title { font-size: 24px; }
+      .testimonials-columns {
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+      }
+      .testimonial-card-large {
+        flex-direction: column;
+      }
+      .testimonial-card-large .card-image {
+        min-height: 200px;
+        max-height: 220px;
+      }
+      .testimonial-card-large .card-content { gap: 24px; }
+      .testimonial-author-name { font-size: 18px; }
+      .testimonials-small-col {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+      }
+      .testimonial-card-small { height: auto; gap: 24px; }
+
+      /* Services — stack vertically */
+      .services { padding: 48px 16px; gap: 40px; }
+      .services-columns {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 20px;
+      }
+      .service-card { width: 100%; max-width: 360px; }
+
+      /* Contact form */
+      .contact-section { padding: 48px 16px; }
+      .contact-inner { width: 100%; }
+      .section-subtitle-block { max-width: 100%; }
+      .section-subtitle-block h2 { font-size: 24px; }
+      .section-subtitle-block p { font-size: 16px; }
+      .form-wrapper { width: 100%; }
+
+      /* Newsletter */
+      .newsletter-section { padding: 48px 16px; }
+      .newsletter-inner { width: 100%; }
+      .newsletter-form-wrap { width: 100%; }
+      .newsletter-row { flex-direction: column; }
+      .newsletter-row .btn-black-lg { width: 100%; justify-content: center; }
+
+      /* Footer */
+      .footer { padding: 48px 16px 8px; gap: 32px; }
+      .footer-inner {
+        flex-direction: column;
+        width: 100%;
+        gap: 32px;
+      }
+      .footer-brand { width: 100%; padding: 0; text-align: left; }
+      .footer-cols {
+        flex-wrap: wrap;
+        gap: 24px;
+        max-width: 100%;
+      }
+      .footer-col { min-width: 120px; }
+      .footer-copyright { width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-headline { font-size: 30px; }
+      .logos-row { gap: 12px; }
+      .logo-item { width: 120px; height: 60px; }
+    }
   </style>
 </head>
 <body>
