@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evžen Vibecoder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #000;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ─────────────────────────────────────────────── */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+    }
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 1200px;
+      max-width: 100%;
+      padding: 0 24px;
+    }
+    .navbar-brand {
+      font-size: 15px;
+      font-weight: 500;
+      padding: 10px;
+      white-space: nowrap;
+    }
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .navbar-link {
+      font-size: 14px;
+      font-weight: 400;
+      padding: 24px 12px;
+      text-decoration: none;
+      color: #000;
+      white-space: nowrap;
+    }
+    .navbar-link:hover { opacity: .7; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: .05em;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: opacity .2s;
+    }
+    .btn:hover { opacity: .85; }
+    .btn-black {
+      background: #000;
+      color: #fff;
+      font-size: 12px;
+      padding: 8px 20px;
+    }
+    .btn-black-lg {
+      background: #000;
+      color: #fff;
+      font-size: 12px;
+      padding: 12px 24px;
+    }
+    .btn-white-lg {
+      background: #fff;
+      color: #000;
+      font-size: 12px;
+      padding: 12px 24px;
+      box-shadow: 0 4px 4px rgba(0,0,0,.25);
+    }
+    .btn-outline {
+      background: #fff;
+      color: #000;
+      font-size: 12px;
+      padding: 16px 24px;
+      border: 1px solid #212121;
+      letter-spacing: 2px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ── BACKGROUND DECORATIONS ─────────────────────────────── */
+    .bg-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .ellipse-1 {
+      position: absolute;
+      width: 2355px;
+      height: 2355px;
+      top: -210px;
+      left: 50%;
+      transform: translateX(-10%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .ellipse-2 {
+      position: absolute;
+      width: 2260px;
+      height: 2260px;
+      top: -923px;
+      left: -590px;
+      z-index: 0;
+      transform: rotate(180deg);
+      pointer-events: none;
+    }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    .hero {
+      display: flex;
+      justify-content: center;
+      padding: 75px 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-inner {
+      display: flex;
+      gap: 80px;
+      align-items: center;
+      width: 1200px;
+      max-width: 100%;
+    }
+    .hero-text { flex: 1; display: flex; flex-direction: column; gap: 24px; }
+    .hero-headline {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .hero-desc {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212121;
+    }
+    .hero-actions { display: flex; gap: 16px; padding-top: 16px; }
+    .hero-image { flex: 1; }
+    .hero-image img {
+      width: 100%;
+      height: 393px;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+    }
+
+    /* ── LOGOS ───────────────────────────────────────────────── */
+    .logos-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+      padding: 75px 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .logos-title {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.5;
+      text-align: center;
+      max-width: 560px;
+    }
+    .logos-row {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .logo-item {
+      width: 250px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* ── TESTIMONIALS ────────────────────────────────────────── */
+    .testimonials {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 75px 24px;
+    }
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+    }
+    .testimonials-columns {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      width: 960px;
+      max-width: 100%;
+    }
+    .testimonial-card {
+      background: #f5f7fa;
+      border-radius: 25px;
+      box-shadow: 0 4px 4px rgba(0,0,0,.25);
+      padding: 24px;
+    }
+    .testimonial-card-large {
+      flex: 1;
+      display: flex;
+      gap: 24px;
+    }
+    .testimonial-card-large .card-image {
+      flex: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      min-height: 280px;
+    }
+    .testimonial-card-large .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+    .testimonial-card-large .card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 92px;
+      color: #000;
+    }
+    .testimonial-quote {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .testimonial-author-name {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+    .testimonial-author-title {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .testimonials-small-col {
+      flex: 1;
+      display: flex;
+      gap: 32px;
+    }
+    .testimonial-card-small {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 72px;
+      height: 328px;
+    }
+    .small-author {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .small-author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 100px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .small-author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .small-author-name {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+    .small-author-role {
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* ── SERVICES ────────────────────────────────────────────── */
+    .services {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 80px;
+      padding: 75px 24px;
+    }
+    .services-columns {
+      display: flex;
+      gap: 0;
+      align-items: center;
+      justify-content: space-between;
+      width: 960px;
+      max-width: 100%;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 25px;
+      box-shadow: 0 4px 130px rgba(150,163,181,.12);
+      width: 260px;
+      padding: 32px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .service-card-intro {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+      padding: 0 24px 32px;
+    }
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .service-icon img { width: 100%; height: 100%; object-fit: contain; }
+    .service-name {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.8;
+      color: #212121;
+      text-align: center;
+    }
+    .service-desc {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212121;
+      text-align: center;
+    }
+    .service-price {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      line-height: 1;
+    }
+    .service-separator { background: #f5f5f5; height: 1px; width: 100%; }
+
+    /* ── CONTACT FORM ────────────────────────────────────────── */
+    .contact-section {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 24px;
+      gap: 40px;
+    }
+    .contact-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      width: 1200px;
+      max-width: 100%;
+    }
+    .section-subtitle-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      text-align: center;
+      max-width: 530px;
+      color: #000;
+    }
+    .section-subtitle-block h2 {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .section-subtitle-block p {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .form-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 500px;
+      max-width: 100%;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-label {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #000;
+    }
+    .form-input {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid #000;
+      background: #fff;
+      padding: 12px;
+      width: 100%;
+      color: #000;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-input::placeholder { color: #979797; }
+    .form-input:focus { border-color: #555; }
+    .form-textarea {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid #000;
+      background: #fff;
+      padding: 12px;
+      width: 100%;
+      height: 100px;
+      resize: vertical;
+      color: #000;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-textarea::placeholder { color: #979797; }
+    .form-textarea:focus { border-color: #555; }
+    .btn-form {
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 12px 24px;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      letter-spacing: .05em;
+      transition: opacity .2s;
+    }
+    .btn-form:hover { opacity: .85; }
+
+    /* ── NEWSLETTER ──────────────────────────────────────────── */
+    .newsletter-section {
+      background: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 24px;
+      gap: 40px;
+    }
+    .newsletter-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      width: 1200px;
+      max-width: 100%;
+    }
+    .newsletter-form-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      width: 400px;
+      max-width: 100%;
+    }
+    .newsletter-row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+    .newsletter-row .form-input { flex: 1; }
+    .newsletter-note {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: center;
+      color: #000;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    .footer {
+      background: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 24px 8px;
+      gap: 40px;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 960px;
+      max-width: 100%;
+    }
+    .footer-brand {
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 2.8px;
+      text-align: center;
+      color: #000;
+      padding: 10px;
+      width: 360px;
+    }
+    .footer-cols {
+      display: flex;
+      gap: 32px;
+      flex: 1;
+      max-width: 600px;
+    }
+    .footer-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .footer-col-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: #212121;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-link {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212121;
+      text-decoration: none;
+    }
+    .footer-link:hover { text-decoration: underline; }
+    .footer-copyright {
+      width: 940px;
+      max-width: 100%;
+      border-top: 1px solid #e4ebf3;
+      padding: 16px 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── BACKGROUND ELLIPSES ─────────────────────── -->
+<div style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;">
+  <img class="ellipse-1" src="https://www.figma.com/api/mcp/asset/7d90b538-faed-4d29-af25-de5b87f5a3ca" alt="" />
+  <img class="ellipse-2" src="https://www.figma.com/api/mcp/asset/73b36611-eca5-4412-881b-10bf7356ecb5" alt="" />
+</div>
+
+<!-- ── NAVBAR ─────────────────────────────────────── -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-brand">Evžen Vibecoder</div>
+    <div class="navbar-menu">
+      <a href="#o-mne" class="navbar-link">O mně</a>
+      <a href="#reference" class="navbar-link">Reference</a>
+      <a href="#cenik" class="navbar-link">Ceník</a>
+      <a href="#kontakt" class="btn btn-black">GET STARTED</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <h1 class="hero-headline">Velmi silný headline</h1>
+        <p class="hero-desc">Chcete, aby váš marketing fungoval - Máte kvalitní produkt, kterému zákazníci rozumí? Tvoříte dostatečně zajímavou nabídku pro vaši cílovku? Je váš nákupní proces vyladěný? Více než 10 let pomáhám firmám budovat jejich marketingovou strategii či samotné týmy, ať už v Česku nebo zahraničí. Pomůžu i vám.</p>
+      </div>
+      <div class="hero-actions">
+        <a href="#kontakt" class="btn btn-black-lg">NAPIŠTE MI</a>
+        <a href="#o-mne" class="btn btn-white-lg">ZJISTIT VÍCE</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://www.figma.com/api/mcp/asset/dc12b7e3-db36-4864-9440-0875d6db2f47" alt="Evžen Vibecoder" />
+    </div>
+  </div>
+</section>
+
+<!-- ── LOGOS ──────────────────────────────────────── -->
+<section class="logos-section" id="o-mne">
+  <h2 class="logos-title">S kým už jsem spolupracoval</h2>
+  <div class="logos-row">
+    <div class="logo-item">
+      <img src="https://www.figma.com/api/mcp/asset/5e61fac3-2294-4957-b7ee-362730bb3256" alt="Skinners" />
+    </div>
+    <div class="logo-item">
+      <img src="https://www.figma.com/api/mcp/asset/88b81e54-462a-4e2d-909c-848ce7499f2f" alt="Na Pasece" />
+    </div>
+    <div class="logo-item">
+      <img src="https://www.figma.com/api/mcp/asset/db2b755b-7435-46e8-8bc7-ca0a287ba31b" alt="Stary Vrch" />
+    </div>
+    <div class="logo-item">
+      <img src="https://www.figma.com/api/mcp/asset/8c07e433-21de-45ce-88e7-a4522b74fa91" alt="Krmim Kvalitne" />
+    </div>
+    <div class="logo-item">
+      <img src="https://www.figma.com/api/mcp/asset/07ea5ecf-3a0c-4bab-94ef-05c13f193ea9" alt="Barberco" />
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ───────────────────────────────── -->
+<section class="testimonials" id="reference">
+  <h2 class="section-title">Měl jsem výsledky nebo výmluvy?</h2>
+  <div class="testimonials-columns">
+
+    <!-- Large testimonial card -->
+    <div style="flex:1;">
+      <div class="testimonial-card testimonial-card-large">
+        <div class="card-image">
+          <img src="https://www.figma.com/api/mcp/asset/ae56c766-8f68-4669-8618-8dab760fbfc9" alt="Tereza Dobrá" />
+        </div>
+        <div class="card-content">
+          <p class="testimonial-quote">"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat."</p>
+          <div>
+            <p class="testimonial-author-name">Tereza Dobrá</p>
+            <p class="testimonial-author-title">Former VP of Company</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two small testimonial cards -->
+    <div class="testimonials-small-col">
+      <div style="flex:1;">
+        <div class="testimonial-card" style="height:328px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div class="testimonial-card-small">
+            <p class="testimonial-quote">"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat."</p>
+            <div class="small-author">
+              <div class="small-author-avatar">
+                <img src="https://www.figma.com/api/mcp/asset/1cf5ccb4-bc4d-4434-aef5-a96f225926cd" alt="Jan Český" />
+              </div>
+              <div>
+                <p class="small-author-name">Jan Český</p>
+                <p class="small-author-role">VP of Company</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <div class="testimonial-card" style="height:328px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div class="testimonial-card-small">
+            <p class="testimonial-quote">"Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat."</p>
+            <div class="small-author">
+              <div class="small-author-avatar">
+                <img src="https://www.figma.com/api/mcp/asset/312ef164-d26a-4988-8b91-c69f368e637b" alt="Jana Mach" />
+              </div>
+              <div>
+                <p class="small-author-name">Jana Mach</p>
+                <p class="small-author-role">VP of Company</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SERVICES / PRICING ─────────────────────────── -->
+<section class="services" id="cenik">
+  <h2 class="section-title">S čím nejčastěji pomáhám</h2>
+  <div class="services-columns">
+
+    <!-- Interim CMO -->
+    <div class="service-card">
+      <div class="service-card-intro">
+        <div class="service-icon">
+          <img src="https://www.figma.com/api/mcp/asset/87669d64-0bdf-496c-8a63-dbccb8ed958c" alt="Interim CMO" />
+        </div>
+        <p class="service-name">Interim CMO</p>
+        <p class="service-desc">Jste CEO firmy a kromě toho řídíte i marketing? Hledáte člověka, který marketingové aktivity strategicky uchopí a zastřeší interní i externí tým?</p>
+        <p class="service-price">2 500 Kč / hod</p>
+        <button class="btn btn-outline">Chci CMO</button>
+      </div>
+      <div class="service-separator"></div>
+    </div>
+
+    <!-- Konzultace -->
+    <div class="service-card">
+      <div class="service-card-intro">
+        <div class="service-icon">
+          <img src="https://www.figma.com/api/mcp/asset/51b25b6b-a270-461d-8e28-6eb4330a8fdc" alt="Konzultace" />
+        </div>
+        <p class="service-name">Konzultace</p>
+        <p class="service-desc">Jste CEO firmy a kromě toho řídíte i marketing? Hledáte člověka, který marketingové aktivity strategicky uchopí a zvládne uřídit interní i externí tým?</p>
+        <p class="service-price">3 500 Kč / hod</p>
+        <button class="btn btn-outline">Chci konzultaci</button>
+      </div>
+      <div class="service-separator"></div>
+    </div>
+
+    <!-- Školení -->
+    <div class="service-card">
+      <div class="service-card-intro">
+        <div class="service-icon" style="overflow:hidden;">
+          <img src="https://www.figma.com/api/mcp/asset/ac2ff7e3-a682-4fef-9e6b-1ac28cdebd90" alt="Školení" style="width:100%;height:100%;object-fit:contain;" />
+        </div>
+        <p class="service-name">Školení</p>
+        <p class="service-desc">Jste CEO firmy a kromě toho řídíte i marketing? Hledáte člověka, který marketingové aktivity strategicky uchopí a zvládne uřídit interní i externí tým?</p>
+        <p class="service-price">individuálně</p>
+        <button class="btn btn-outline">Chci školení</button>
+      </div>
+      <div class="service-separator"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CONTACT FORM ────────────────────────────────── -->
+<section class="contact-section" id="kontakt">
+  <div class="contact-inner">
+    <div class="section-subtitle-block">
+      <h2>Spojme se</h2>
+      <p>Napište mi, jak vám můžu pomoct</p>
+    </div>
+    <div class="form-wrapper">
+      <div class="form-group">
+        <label class="form-label">Jméno</label>
+        <input class="form-input" type="text" placeholder="Vaše jméno" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="me@company.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Zpráva</label>
+        <textarea class="form-textarea" placeholder="Vaše zpráva"></textarea>
+      </div>
+      <button class="btn-form">Odeslat zprávu</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ──────────────────────────────────── -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="section-subtitle-block">
+      <h2>Odebírejte novinky</h2>
+      <p>Dvakrát za měsíc vám pošlu novinky ze světa marketingu a technologií</p>
+    </div>
+    <div class="newsletter-form-wrap">
+      <div class="newsletter-row">
+        <input class="form-input" type="email" placeholder="Enter your email" style="flex:1;" />
+        <button class="btn btn-black-lg" style="white-space:nowrap;">Přihlašte se k odběru</button>
+      </div>
+      <p class="newsletter-note">Každých 14 dní budete v obraze</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">Evžen Vibecoder</div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="footer-col-title">O MNĚ</p>
+        <div class="footer-links">
+          <a href="#" class="footer-link">How it works</a>
+          <a href="#" class="footer-link">Pricing</a>
+          <a href="#" class="footer-link">Demo</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">BLOG</p>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Blog 1</a>
+          <a href="#" class="footer-link">Blog 2</a>
+          <a href="#" class="footer-link">Blog 3</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">OSTATNÍ</p>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Terms &amp; Conditions</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    Copyright © 2022 Evžen Vibecoder
+  </div>
+</footer>
+
+</body>
+</html>
